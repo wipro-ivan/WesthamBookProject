@@ -46,7 +46,7 @@ public class LoginDAO {
 		Connection dbConn = UserTblUtil.getConnection();
 		
 		try{
-			String sql  = "select password from usertbltest where emailAddr = '" + username + "'";
+			String sql  = "select password from BookUsers where emailAddr = '" + username + "'";
 			
 			//create result set for querying password
 			ResultSet rs = dbConn.createStatement().executeQuery(sql);
@@ -64,6 +64,24 @@ public class LoginDAO {
 		//return boolean
 		System.out.println(passwordTrue);
 		return passwordTrue;
+	}
+	
+	public static String getName(String username){
+		Connection dbConn = UserTblUtil.getConnection();
+		String name = "";
+		try{
+			String sql  = "select firstName from BookUsers where emailAddr = '" + username + "'";
+			
+			//create result set for querying password
+			ResultSet rs = dbConn.createStatement().executeQuery(sql);
+			while(rs.next()){
+				name = rs.getString(1);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return name;
 	}
 	
 	public static void main(String[] args) {

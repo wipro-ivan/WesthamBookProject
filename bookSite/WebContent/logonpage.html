@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Log on</title>
+	</head>
+	<body>
+	<h1>Log In</h1>
+		<form method="get" action="LoginServlet">
+			<h4>Username</h4>
+			<input type="email" name="email" minlength="10" maxlength="50" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+			<h4>Password</h4>
+			<input type="password" name="password" minlength="8" maxlength="30" placeholder="********"><br>
+			<label><input id="rememberme" name="rememberme" value="Remember" type="checkbox"/>&nbsp;Remember me</label><br>
+			<input type="submit" name="" value="Sign In"><br><br>
+			<a href='#'>Forget Password?</a>
+		</form>
+	</body>
+</html>

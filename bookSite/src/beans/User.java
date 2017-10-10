@@ -115,13 +115,8 @@ public class User {
           this.securityLevel = securityLevel;
     }
     
-    User (){
+    public User (){
           
-    }
-    
-    
-    
-    
-    
-    
+    };
+     
 }
