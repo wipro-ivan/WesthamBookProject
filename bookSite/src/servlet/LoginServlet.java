@@ -33,17 +33,31 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Set response content type
 	     response.setContentType("text/html");
+	   
+	     //printwriter to print onto page
 		PrintWriter out=response.getWriter();
+		
 		// created a new user using the bean
 		User newuser = new User();
-		//set username and password to parameters from HTML page
-		newuser.setEmailAddr(request.getParameter("email"));	
-		newuser.setPassword(request.getParameter("password"));
-		//print out username and password onto page
-		out.println(newuser.getEmailAddr());	
-		out.println(newuser.getPassword());
+		//set username  from HTML page
+		newuser.setEmailAddr(request.getParameter("email"));
 		
-		
+		//check if email address exists in table 
+		if(LoginDAO.checkUser(newuser.getEmailAddr())){
+			//set password
+			newuser.setPassword(request.getParameter("password"));
+			//authentice password
+			if(LoginDAO.checkPW(newuser.getEmailAddr(), newuser.getPassword())){
+				//welcome user
+				out.println("Welcome " + LoginDAO.getName(newuser.getEmailAddr() + "!"));
+			}
+			else{
+				out.println("This password is incorrect."); //indicate that this is the wrong password
+			}
+		}
+		else{
+			out.println("This account does not exist."); //indicate that this email address isn't present in DB
+		}
 		
 	}
 

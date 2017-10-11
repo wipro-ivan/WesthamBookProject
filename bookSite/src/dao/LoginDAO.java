@@ -15,6 +15,7 @@ public class LoginDAO {
 		boolean userExists=false; // boolean to determine whether user exists or not, default as false
 		//Create a Statement Object
 		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver"); //IMPORTANT LINE, IF YOU DO NOT INCLUDE THIS WITH ANOTHER CATCH STATEMENT YOUR CODE WILL NOT RUN
 			Statement st=dBconn.createStatement();
 			//construct query to select the row of input email address
 			String sql="select * from BookUsers where emailAddr='"+username+"'";
@@ -31,7 +32,9 @@ public class LoginDAO {
 			System.out.println("Username not found"); //print out that username is not found 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();//show errors
+		} catch(Exception e2){
+			e2.printStackTrace(); //show errors
 		}
 		return userExists;
 
