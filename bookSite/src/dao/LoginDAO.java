@@ -13,29 +13,34 @@ public class LoginDAO {
 		//establish connection with database
 		Connection dBconn = UserTblUtil.getConnection();// This is calling the connection from another class rather than declarting connection here
 		boolean userExists=false; // boolean to determine whether user exists or not, default as false
+		//String out = "-";
 		//Create a Statement Object
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver"); //IMPORTANT LINE, IF YOU DO NOT INCLUDE THIS WITH ANOTHER CATCH STATEMENT YOUR CODE WILL NOT RUN
 			Statement st=dBconn.createStatement();
 			//construct query to select the row of input email address
-			String sql="select * from BookUsers where emailAddr='"+username+"'";
+			//String sql="select emailAddr from BookUsers where emailAddr='"+username+"'";
+			String sql="select emailAddr from BookUsers where emailAddr = '" + username + "'";
 			//query string and store in results list
 			ResultSet rs=st.executeQuery(sql);
 			
 			//if anything is stored into results set, then the user exists 
 			while (rs.next())
 			{
+				//out = out + " emailAddr="+rs.getString("emailAddr");
 				userExists=true; //set user exists boolean to true
-				//System.out.println("emailAddr="+rs.getString("emailAddr"));
 			}	
 			if (!userExists)
 			System.out.println("Username not found"); //print out that username is not found 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();//show errors
+			//out = out + " " + e.toString();
 		} catch(Exception e2){
 			e2.printStackTrace(); //show errors
+			//out = out + " " + e2.toString();
 		}
+		//return out;
 		return userExists;
 
 	}
@@ -49,12 +54,18 @@ public class LoginDAO {
 		Connection dbConn = UserTblUtil.getConnection();
 		
 		try{
-			String sql  = "select password from BookUsers where emailAddr = '" + username + "'";
+			Class.forName("oracle.jdbc.driver.OracleDriver"); //IMPORTANT LINE, IF YOU DO NOT INCLUDE THIS WITH ANOTHER CATCH STATEMENT YOUR CODE WILL NOT RUN
 			
+		}catch(Exception e2){
+			e2.printStackTrace();
+		}
+		try{
+			String sql  = "select password from BookUsers where emailAddr = '" + username + "'";
+			Statement st=dbConn.createStatement();
 			//create result set for querying password
-			ResultSet rs = dbConn.createStatement().executeQuery(sql);
+			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()){
-				pass = rs.getString(1);
+				pass = rs.getString("Password");
 			}
 			//if pass = password, set true to output
 			if(pass.equals(password)){
@@ -65,22 +76,29 @@ public class LoginDAO {
 		}
 		
 		//return boolean
-		System.out.println(passwordTrue);
 		return passwordTrue;
+		//return pass used for testing ;
 	}
 	
 	public static String getName(String username){
 		Connection dbConn = UserTblUtil.getConnection();
 		String name = "";
+		
 		try{
+			Class.forName("oracle.jdbc.driver.OracleDriver"); //IMPORTANT LINE, IF YOU DO NOT INCLUDE THIS WITH ANOTHER CATCH STATEMENT YOUR CODE WILL NOT RUN
+		}catch(Exception e2){
+			e2.printStackTrace();
+		}
+		
+		try{
+			//string to query
 			String sql  = "select firstName from BookUsers where emailAddr = '" + username + "'";
-			
 			//create result set for querying password
-			ResultSet rs = dbConn.createStatement().executeQuery(sql);
+			Statement st=dbConn.createStatement();
+			ResultSet rs = st.executeQuery(sql);
 			while(rs.next()){
-				name = rs.getString(1);
+				name = rs.getString("firstName");
 			}
-			
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

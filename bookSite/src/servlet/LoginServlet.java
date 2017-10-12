@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
@@ -9,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import beans.User;
 import dao.LoginDAO;
+import dbUtil.UserTblUtil;
 
 /**
  * Servlet implementation class LoginServlet
@@ -41,15 +42,17 @@ public class LoginServlet extends HttpServlet {
 		User newuser = new User();
 		//set username  from HTML page
 		newuser.setEmailAddr(request.getParameter("email"));
+		newuser.setPassword(request.getParameter("password"));
 		
 		//check if email address exists in table 
+		
 		if(LoginDAO.checkUser(newuser.getEmailAddr())){
 			//set password
 			newuser.setPassword(request.getParameter("password"));
 			//authentice password
 			if(LoginDAO.checkPW(newuser.getEmailAddr(), newuser.getPassword())){
 				//welcome user
-				out.println("Welcome " + LoginDAO.getName(newuser.getEmailAddr() + "!"));
+				out.println("Welcome " + LoginDAO.getName(newuser.getEmailAddr()) + "!");
 			}
 			else{
 				out.println("This password is incorrect."); //indicate that this is the wrong password
