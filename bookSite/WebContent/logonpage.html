@@ -6,14 +6,16 @@
 	</head>
 	<body>
 	<h1>Log In</h1>
-		<form method="get" action="LoginServlet">
+		<form>
 			<h4>Username</h4>
 			<input type="email" name="email" minlength="10" maxlength="50" placeholder="example@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
 			<h4>Password</h4>
 			<input type="password" name="password" minlength="8" maxlength="30" placeholder="********"><br>
 			<label><input id="rememberme" name="rememberme" value="Remember" type="checkbox"/>&nbsp;Remember me</label><br>
 			<input type="submit" name="" value="Sign In"><br><br>
-			<a href='#'>Forget Password?</a>
+			<a href='http://localhost:9998/logonPage/forgottenPassword.html'>Forget Password?</a><br><br>
+			<a href='http://localhost:9998/logonPage/Register.html'>Don't have an account? Register</a>
 		</form>
 	</body>
+
 </html>

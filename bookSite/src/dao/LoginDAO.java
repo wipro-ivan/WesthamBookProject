@@ -91,6 +91,7 @@ public class LoginDAO {
 		}
 		
 		try{
+		
 			//string to query
 			String sql  = "select firstName from BookUsers where emailAddr = '" + username + "'";
 			//create result set for querying password
@@ -103,12 +104,6 @@ public class LoginDAO {
 			e.printStackTrace();
 		}
 		return name;
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//checkPW("ivan_yohuno@hotmail.co.uk", "test");
-		//checkUser("ivan_yohuno@hotmail.co.uk");
 	}
 
 }
